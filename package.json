@@ -5,7 +5,7 @@
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "^2.1.1"
   },
   "homepage": "https://taniarascia.github.io/react-tutorial",
   "scripts": {
@@ -18,5 +18,11 @@
   },
   "devDependencies": {
     "gh-pages": "^1.2.0"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
