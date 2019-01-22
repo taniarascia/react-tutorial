@@ -20,7 +20,9 @@ class Form extends Component {
         });
     }
 
-    submitForm = () => {
+    onFormSubmit = (event) => {
+        event.preventDefault();
+        
         this.props.handleSubmit(this.state);
         this.setState(this.initialState);
     }
@@ -29,7 +31,7 @@ class Form extends Component {
         const { name, job } = this.state; 
 
         return (
-            <form>
+            <form onSubmit={this.onFormSubmit}>
                 <label>Name</label>
                 <input 
                     type="text" 
@@ -41,11 +43,10 @@ class Form extends Component {
                     type="text" 
                     name="job" 
                     value={job} 
-                    onChange={this.handleChange}/>
-                <input 
-                    type="button" 
-                    value="Submit" 
-                    onClick={this.submitForm} />
+                    onChange={this.handleChange} />
+                <button type="submit">
+                    Submit
+                </button>
             </form>
         );
     }
