@@ -1,6 +1,6 @@
 # React Tutorial
 
-Learn the fundamentals of React, including simple and class components, state, props, and submitting form data.
+Learn the fundamentals of React including simple and class components, state, props, and submitting form data.
 
 ### [View the demo](https://taniarascia.github.io/react-tutorial/) | [Read the tutorial](https://www.taniarascia.com/getting-started-with-react/)
 
