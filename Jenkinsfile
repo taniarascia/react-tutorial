@@ -20,6 +20,7 @@ pipeline {
 				sh 'echo $! > .pidfile'
 				echo "webserver on: http://127.0.0.1:3000"
 				input message: 'Click to process to allow continue project or abort to quit'
+				sh 'cat .pidfile'
 				sh 'kill -9 $(cat .pidfile)'
 			}
 		}
