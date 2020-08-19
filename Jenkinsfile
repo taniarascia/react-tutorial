@@ -16,8 +16,8 @@ pipeline {
 		stage('TEST') {
 			steps {
 				echo "Test project in development"
-				sh 'yarn start & sleep 30 '
-				sh 'echo &! > .pidfile'
+				sh 'yarn start & sleep 30'
+				sh 'echo $! > .pidfile'
 				echo "webserver on: http://127.0.0.1:3000"
 				input message: 'Click to process to allow continue project or abort to quit'
 				sh 'kill -9 $(cat .pidfile)'
@@ -30,7 +30,7 @@ pipeline {
 				echo "Test production BUILD in build dir"
 				sh 'cd build'
 				sh 'yarn start & sleep 30'
-				sh 'echo &! > .pidfile'
+				sh 'echo $! > .pidfile'
 				echo "webserver on: http://127.0.0.1:3000"
 				input message: 'Continue or Abort'
 				sh 'kill -9 $(cat .pidfile)'
