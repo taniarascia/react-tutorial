@@ -22,7 +22,11 @@ pipeline {
 				sh 'yarn start & sleep 20'
 				echo "webserver on: http://127.0.0.1:3000"
 				input message: 'Click to process to allow continue project or abort to quit'
+<<<<<<< HEAD
 				echo "successful"
+=======
+				echo "Successful"
+>>>>>>> master
 			}
 		}
 		stage('DEPLOY') {
@@ -34,10 +38,15 @@ pipeline {
 				sh 'yarn run build'
 				echo "Test production BUILD in build dir"
 				sh 'cd build'
+<<<<<<< HEAD
 				sh 'yarn start & sleep 30'
+=======
+				sh 'yarn start & sleep 20'
+>>>>>>> master
 				echo "webserver on: http://127.0.0.1:3000"
 				input message: 'Continue or Abort'
 				echo 'production is success for deploy another server in build folder'
+				echo "Successful"
 			}
 		}
 	}
