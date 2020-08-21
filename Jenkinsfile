@@ -63,5 +63,34 @@ pipeline {
 				echo "Successful"
 			}
 		}
+		stage('Production') {
+			when {
+				branch 'Production'
+			}
+			steps {
+				echo "Deploy on Production"
+				rtDownload (
+				    serverId: 'jfrogserver',
+				    spec: '''{
+				          "files": [
+				            {
+				              "pattern": "npm-local/node-react/",
+				              "target": "."
+				            }
+				          ]
+				    }'''
+				 sh 'yarn install'
+				 sh 'yarn start & sleep 20'
+				 input message: 'Click to process to allow continue project or abort to quit'
+				 echo "successful"
+				    // Optional - Associate the downloaded files with the following custom build name and build number,
+				    // as build dependencies.
+				    // If not set, the files will be associated with the default build name and build number (i.e the
+				    // the Jenkins job name and number).
+				    //buildName: 'holyFrog',
+				    //buildNumber: '42'
+				)
+			}
+		}
 	}
 }
