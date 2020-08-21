@@ -2,7 +2,7 @@ pipeline {
 	agent {
 		//docker {
 			//image 'node:13'
-			label 'kvm_ubuntu18'
+			label 'host'
 			//args '-p 3000:3000'
 		//}
 	}
@@ -14,7 +14,7 @@ pipeline {
 		stage('BUILD') {
 			steps {
 				echo "Install dependences and moduler for project"
-				sh 'npm install'
+				sh 'yarn install'
 			}
 		}
 		stage('TEST') {
@@ -23,7 +23,7 @@ pipeline {
 			}
 			steps {
 				echo "Test project in development"
-				sh 'npm start & sleep 20'
+				sh 'yarn start & sleep 20'
 				echo "webserver on: http://127.0.0.1:3000"
 				input message: 'Click to process to allow continue project or abort to quit'
 				echo "successful"
@@ -35,44 +35,31 @@ pipeline {
 			}
 			steps {
 				echo "Build apps for production "
-				rtNpmResolver (
-				    id: 'resolver-node-react',
-				    serverId: 'jfrogserver',
-				    repo: 'npm-local'
-				)
-				rtNpmDeployer (
-				    id: 'deployer-node-react',
-				    serverId: 'jfrogserver',
-				    repo: 'npm-local-dependencies'
-				    // Attach custom properties to the published artifacts:
-				    //properties: ['key1=value1', 'key2=value2']
-				)
-				rtNpmInstall (
-				    // Optional tool name from Jenkins configuration
-				    //tool: NPM_TOOL,
-				    // Optional path to the project root. If not set, the root of the workspace is assumed as the root project path.
-				    //path: 'npm-example',
-				    // Optional npm flags or arguments.
-				    //args: '--verbose',
-				    resolverId: 'resolver-node-react'
-				)
-				rtNpmPublish (
-				    // Optional tool name from Jenkins configuration
-				    //tool: 'npm-tool-name',
-				    // Optional path to the project root. If not set, the root of the workspace is assumed as the root project path.
-				    //path: 'npm-example',
-				    deployerId: 'deployer-node-react'
-				)
-				rtPublishBuildInfo (
-				    serverId: 'jfrogserver'
-				    // The buildName and buildNumber below are optional. If you do not set them, the Jenkins job name is used
-				    // as the build name. The same goes for the build number.
-				    // If you choose to set custom build name and build number by adding the following buildName and
-				    // buildNumber properties, you should make sure that previous build steps (for example rtDownload
-				    // and rtIpload) have the same buildName and buildNumber set. If they don't, then these steps will not
-				    // be included in the build-info.
+				sh 'yarn run build'
+				echo "Test production BUILD in build dir"
+				//sh 'cd build'
+				//sh 'yarn start & sleep 20'
+				echo "webserver on: http://127.0.0.1:3000"
+				//input message: 'Continue or Abort'
+				echo 'production is success for deploy another server in build folder'
+				rtUpload (
+				    serverId: 'Artifactory-1',
+				    spec: '''{
+				          "files": [
+				            {
+				              "pattern": "build/*",
+				              "target": "npm-local/node-react/"
+				            }
+				         ]
+				    }'''
+				 
+				    // Optional - Associate the uploaded files with the following custom build name and build number,
+				    // as build artifacts.
+				    // If not set, the files will be associated with the default build name and build number (i.e the
+				    // the Jenkins job name and number).
 				    //buildName: 'holyFrog',
-				    //buildNumber: '42',
+				    //buildNumber: '42'
+				    echo "Successful"
 				)
 			}
 		}
