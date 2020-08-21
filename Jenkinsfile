@@ -43,7 +43,7 @@ pipeline {
 				//input message: 'Continue or Abort'
 				echo 'production is success for deploy another server in build folder'
 				rtUpload (
-				    serverId: 'Artifactory-1',
+				    serverId: 'jfrogserver',
 				    spec: '''{
 				          "files": [
 				            {
