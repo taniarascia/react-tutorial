@@ -70,13 +70,6 @@ pipeline {
 				    //buildName: 'holyFrog',
 				    //buildNumber: '42',
 				)
-				echo "Test production BUILD in build dir"
-				sh 'cd build'
-				sh 'yarn start & sleep 20'
-				echo "webserver on: http://127.0.0.1:3000"
-				input message: 'Continue or Abort'
-				echo 'production is success for deploy another server in build folder'
-				echo "Successful"
 			}
 		}
 	}
