@@ -2,9 +2,13 @@ pipeline {
 	agent {
 		//docker {
 			//image 'node:13'
-			label 'master'
+			label 'kvm_ubuntu18'
 			//args '-p 3000:3000'
 		//}
+	}
+	environment {
+	    // Path to the NodeJS home directory (not to the npm executable)
+	    NODEJS_HOME = '/root/node'
 	}
 	stages {
 		stage('BUILD') {
@@ -54,7 +58,7 @@ pipeline {
 				)
 				rtNpmPublish (
 				    // Optional tool name from Jenkins configuration
-				    tool: 'npm-tool-name',
+				    //tool: 'npm-tool-name',
 				    // Optional path to the project root. If not set, the root of the workspace is assumed as the root project path.
 				    //path: 'npm-example',
 				    deployerId: 'deployer-node-react'
