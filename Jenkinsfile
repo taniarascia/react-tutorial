@@ -14,7 +14,7 @@ pipeline {
 		stage('BUILD') {
 			steps {
 				echo "Install dependences and moduler for project"
-				sh 'yarn install'
+				sh 'npm install'
 			}
 		}
 		stage('TEST') {
@@ -23,7 +23,7 @@ pipeline {
 			}
 			steps {
 				echo "Test project in development"
-				sh 'yarn start & sleep 20'
+				sh 'npm start & sleep 20'
 				echo "webserver on: http://127.0.0.1:3000"
 				input message: 'Click to process to allow continue project or abort to quit'
 				echo "successful"
