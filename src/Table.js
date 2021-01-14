@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TableHeader = () => { 
+const TableHeader = () => {
     return (
         <thead>
             <tr>
@@ -12,7 +12,7 @@ const TableHeader = () => {
     );
 }
 
-const TableBody = props => { 
+const TableBody = props => {
     const rows = props.characterData.map((row, index) => {
         return (
             <tr key={index}>
@@ -28,12 +28,12 @@ const TableBody = props => {
 
 const Table = (props) => {
     const { characterData, removeCharacter } = props;
-        return (
-            <table>
-                <TableHeader />
-                <TableBody characterData={characterData} removeCharacter={removeCharacter} />
-            </table>
-        );
+    return (
+        <table>
+            <TableHeader />
+            <TableBody characterData={characterData} removeCharacter={removeCharacter} />
+        </table>
+    );
 }
 
 export default Table;
