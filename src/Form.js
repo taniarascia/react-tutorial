@@ -1,57 +1,48 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 
-class Form extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.initialState = {
-            name: '',
-            job: ''
+const Form = ({handleSubmit}) => {
+
+    const [name, setName] = useState("");
+    const [job, setJob] = useState("");
+    
+
+    function onFormSubmit(event) {
+        const data = {
+            name: name,
+            job: job
         };
-
-        this.state = this.initialState;
-    }
-
-    handleChange = event => {
-        const { name, value } = event.target;
-
-        this.setState({
-            [name] : value
-        });
-    }
-
-    onFormSubmit = (event) => {
         event.preventDefault();
         
-        this.props.handleSubmit(this.state);
-        this.setState(this.initialState);
+        handleSubmit(data);
+        setName("");
+        setJob("");
+
     }
 
-    render() {
-        const { name, job } = this.state; 
+
+
 
         return (
-            <form onSubmit={this.onFormSubmit}>
+            <form onSubmit={onFormSubmit}>
                 <label for="name">Name</label>
                 <input 
                     type="text" 
                     name="name" 
                     id="name"
                     value={name} 
-                    onChange={this.handleChange} />
+                    onChange={(e) => setName(e.target.value)} />
                 <label for="job">Job</label>
                 <input 
                     type="text" 
                     name="job" 
                     id="job"
                     value={job} 
-                    onChange={this.handleChange} />
+                    onChange={(e) => setJob(e.target.value)} />
                 <button type="submit">
                     Submit
                 </button>
             </form>
         );
-    }
 }
 
 export default Form;
