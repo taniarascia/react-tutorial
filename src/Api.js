@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
-class App extends Component {
-    state = {
-        data: []
-    };
-    
-    componentDidMount() {
+const App = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
         const url = "https://en.wikipedia.org/w/api.php?action=opensearch&search=Seona+Dancing&format=json&origin=*&limit=1";
 
         fetch(url)
@@ -15,10 +13,8 @@ class App extends Component {
                     data: result
                 })
             });
-    }
+    })
 
-    render() {
-        const { data } = this.state;
 
         const result = data.map((entry, index) => {
             console.log(entry);
@@ -26,7 +22,6 @@ class App extends Component {
         });
 
         return <div className="container"><ul>{result}</ul></div>;
-    }
 }
 
 export default App;
